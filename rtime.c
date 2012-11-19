@@ -11,7 +11,7 @@ double diff_time(LARGE_INTEGER t2, LARGE_INTEGER t1)
 	ret=(double)(t2.QuadPart-t1.QuadPart);
 	ret/=cycles.QuadPart;
 
-	printf("Precision: %.10f\n", 1.0f/(double)cycles.QuadPart);
+	fprintf(stderr, "Precision: %.10f\n", 1.0f/(double)cycles.QuadPart);
 	return ret;
 }
 
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	LARGE_INTEGER time1, time2;
 
 	if (argc <= 1) {
-		printf("Missing argument!\n");
+		fprintf(stderr, "Missing argument!\n");
 		return 0;
 	}
 
@@ -29,10 +29,10 @@ int main(int argc, char *argv[])
 	QueryPerformanceCounter(&time2);
 
 	if (res == -1)
-		printf("Error executing %s: %s\n", argv[1], strerror(errno));
+		fprintf(stderr, "Error executing %s: %s\n", argv[1], strerror(errno));
 	else if (res != 0)
-		printf("Program returned code %d\n", res);
+		fprintf(stderr, "Program returned code %d\n", res);
 
-	printf("Time: %.10f seconds\n", diff_time(time2, time1));
+	fprintf(stderr, "Time: %.10f seconds\n", diff_time(time2, time1));
 	return 0;
 }
